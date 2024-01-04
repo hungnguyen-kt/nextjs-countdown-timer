@@ -173,7 +173,7 @@
 }
 
 .countdown .countdown__item .countdown__item--number {
-  font-size: 8rem;
+  font-size: 5rem;
 }
 
 .countdown .countdown__item .countdown__item--text {
@@ -214,5 +214,9 @@
 @media screen and (min-width: 768px) {
   .countdown {
     flex-direction: row;
+  }
+
+  .countdown .countdown__item .countdown__item--number {
+    font-size: 8rem;
   }
 }
