@@ -51,7 +51,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <button onClick={() => setShowSidebar(true)}>setShowSidebar</button>
+      {/* <button onClick={() => setShowSidebar(true)}>setShowSidebar</button> */}
       {showSidebar && (
         <div className={styles.sidebar}>
           <div className={styles.sidebar__header}>
