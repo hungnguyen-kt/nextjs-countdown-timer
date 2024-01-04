@@ -51,7 +51,7 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      {/* <button onClick={() => setShowSidebar(true)}>setShowSidebar</button> */}
+      <button onClick={() => setShowSidebar(true)}>setShowSidebar</button>
       {showSidebar && (
         <div className={styles.sidebar}>
           <div className={styles.sidebar__header}>
@@ -97,25 +97,25 @@ export default function Home() {
         <div className={styles.countdown}>
           <div className={styles.countdown__item}>
             <div id="days" className={styles['countdown__item--number']}>
-              45
+              00
             </div>
             <div className="countdown__item--text">Days</div>
           </div>
           <div className={styles.countdown__item}>
             <div id="hours" className={styles['countdown__item--number']}>
-              15
+              00
             </div>
             <div className="countdown__item--text">Hours</div>
           </div>
           <div className={styles.countdown__item}>
             <div id="minutes" className={styles['countdown__item--number']}>
-              32
+              00
             </div>
             <div className="countdown__item--text">Minutes</div>
           </div>
           <div className={styles.countdown__item}>
             <div id="seconds" className={styles['countdown__item--number']}>
-              55
+              00
             </div>
             <div className="countdown__item--text">Seconds</div>
           </div>
