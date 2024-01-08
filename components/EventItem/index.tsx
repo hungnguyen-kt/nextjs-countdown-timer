@@ -14,7 +14,7 @@ export const EventItem = (props: PropsType) => {
 
   const deleteEvent = () => {
     props.deleteEvent(id);
-  }
+  };
 
   useEffect(() => {
     const daysEl = document.getElementById(`days-${id}`);
@@ -32,7 +32,7 @@ export const EventItem = (props: PropsType) => {
 
     timer.start();
     return () => timer.stop();
-  }, [id]);
+  }, [id, date]);
 
   return (
     <li id={id} className={styles.event}>
@@ -48,7 +48,12 @@ export const EventItem = (props: PropsType) => {
         </div>
         <div className={styles.event__actions}>
           <div className={styles['event__actions--edit']}>Edit</div>
-          <div className={styles['event__actions--delete']} onClick={deleteEvent}>Delete</div>
+          <div
+            className={styles['event__actions--delete']}
+            onClick={deleteEvent}
+          >
+            Delete
+          </div>
         </div>
       </div>
     </li>

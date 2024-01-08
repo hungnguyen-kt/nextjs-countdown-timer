@@ -1,12 +1,24 @@
 'use client';
 
-import { useState, useEffect, FormEvent } from 'react';
+import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from 'yup';
+
+const schema = yup
+  .object()
+  .shape({
+    event: yup.string().required(),
+    date: yup.string().required(),
+  })
+  .required();
+
 import { v4 as uuidv4 } from 'uuid';
 import styles from './page.module.css';
 
 import { RootState } from '@/lib/store';
-import { useSelector, useDispatch } from 'react-redux';
 import { addEvent } from '@/lib/features/event/eventSlice';
 import { Event } from '@/lib/features/event/type';
 
@@ -22,15 +34,23 @@ export default function Home() {
   const events = useSelector((state: RootState) => state.counter.events);
   const dispatch = useDispatch();
 
+  const addMoreDate = (date: string, days: number) => {
+    const dateObj = new Date(date);
+    dateObj.setDate(dateObj.getDate() + days);
+    return dateObj.toISOString().substring(0, 10);
+  };
+
   const {
     register,
+    setValue,
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>({
     mode: 'onChange',
+    resolver: yupResolver(schema),
     defaultValues: {
       event: '',
-      date: new Date().toISOString().substring(0, 10),
+      date: addMoreDate(new Date().toISOString().substring(0, 10), 2),
     },
   });
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
@@ -50,7 +70,8 @@ export default function Home() {
       id: uuidv4(),
       title: data.event,
       date: data.date,
-    }
+    };
+    setValue('event', '');
     localStorage.setItem('events', JSON.stringify([...events, formData]));
     dispatch(addEvent(formData));
   };
@@ -121,16 +142,20 @@ export default function Home() {
                   id="event"
                   {...register('event', { required: true })}
                 />
-                {errors.event && <span>This field is required</span>}
+                {errors.event?.message}
 
                 <label htmlFor="date">Date:</label>
                 <input
                   type="date"
                   id="date"
                   className={styles.form__date}
+                  min={addMoreDate(
+                    new Date().toISOString().substring(0, 10),
+                    2
+                  )}
                   {...register('date', { required: true })}
                 />
-                {errors.date && <span>This field is required</span>}
+                {errors.date?.message}
                 <input type="submit" value="Add Event" />
               </form>
             </div>
