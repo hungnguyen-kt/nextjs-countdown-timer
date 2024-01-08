@@ -69,23 +69,23 @@ export default function Home() {
     }
   };
 
-  // useEffect(() => {
-  //   const date = '2024-02-18';
-  //   const daysEl = document.getElementById('days');
-  //   const hoursEl = document.getElementById('hours');
-  //   const minutesEl = document.getElementById('minutes');
-  //   const secondsEl = document.getElementById('seconds');
+  useEffect(() => {
+    const date = '2024-02-18';
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
 
-  //   const timer = new CountdownTimer(
-  //     date,
-  //     daysEl,
-  //     hoursEl,
-  //     minutesEl,
-  //     secondsEl
-  //   );
-  //   timer.start();
-  //   return () => timer.stop();
-  // }, []);
+    const timer = new CountdownTimer(
+      date,
+      daysEl,
+      hoursEl,
+      minutesEl,
+      secondsEl
+    );
+    timer.start();
+    return () => timer.stop();
+  }, []);
 
   return (
     <main className={styles.main}>

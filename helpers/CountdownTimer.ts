@@ -1,12 +1,18 @@
 class CountdownTimer {
   private targetDateTime: number;
-  private daysEl: HTMLElement;
-  private hoursEl: HTMLElement;
-  private minutesEl: HTMLElement;
-  private secondsEl: HTMLElement;
+  private daysEl: HTMLElement | null;
+  private hoursEl: HTMLElement | null;
+  private minutesEl: HTMLElement | null;
+  private secondsEl: HTMLElement | null;
   private timer: NodeJS.Timeout | null;
 
-  constructor(date: string, daysEl: any, hoursEl: any, minutesEl: any, secondsEl: any) {
+  constructor(
+    date: string,
+    daysEl: HTMLElement | null,
+    hoursEl: HTMLElement | null,
+    minutesEl: HTMLElement | null,
+    secondsEl: HTMLElement | null
+  ) {
     this.targetDateTime = new Date(date).getTime();
     this.daysEl = daysEl;
     this.hoursEl = hoursEl;
@@ -19,6 +25,26 @@ class CountdownTimer {
     return time < 10 ? `0${time}` : `${time}`;
   }
 
+  private setTimer(
+    days: string,
+    hours: string,
+    minutes: string,
+    seconds: string
+  ) {
+    if (this.daysEl) {
+      this.daysEl.innerHTML = days;
+    }
+    if (this.hoursEl) {
+      this.hoursEl.innerHTML = hours;
+    }
+    if (this.minutesEl) {
+      this.minutesEl.innerHTML = minutes;
+    }
+    if (this.secondsEl) {
+      this.secondsEl.innerHTML = seconds;
+    }
+  }
+
   private updateTime(remainingTime: number) {
     const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
     const minutes = Math.floor(
@@ -28,11 +54,12 @@ class CountdownTimer {
       (remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
     );
     const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
-
-    this.daysEl.innerHTML = this.formatNumber(days);
-    this.hoursEl.innerHTML = this.formatNumber(hours);
-    this.minutesEl.innerHTML = this.formatNumber(minutes);
-    this.secondsEl.innerHTML = this.formatNumber(seconds);
+    this.setTimer(
+      this.formatNumber(days),
+      this.formatNumber(hours),
+      this.formatNumber(minutes),
+      this.formatNumber(seconds)
+    );
   }
 
   public start() {
@@ -51,6 +78,7 @@ class CountdownTimer {
 
   public stop() {
     if (this.timer) {
+      this.setTimer('00', '00', '00', '00');
       clearInterval(this.timer);
     }
   }
