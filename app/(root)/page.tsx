@@ -45,12 +45,13 @@ export default function Home() {
     return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => {
+  const onSubmit: SubmitHandler<Inputs> = async (data) => {
     const formData: Event = {
       id: uuidv4(),
       title: data.event,
       date: data.date,
     }
+    localStorage.setItem('events', JSON.stringify([...events, formData]));
     dispatch(addEvent(formData));
   };
 
@@ -68,23 +69,23 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    const date = new Date('2024-02-18');
-    const daysEl = document.getElementById('days');
-    const hoursEl = document.getElementById('hours');
-    const minutesEl = document.getElementById('minutes');
-    const secondsEl = document.getElementById('seconds');
+  // useEffect(() => {
+  //   const date = '2024-02-18';
+  //   const daysEl = document.getElementById('days');
+  //   const hoursEl = document.getElementById('hours');
+  //   const minutesEl = document.getElementById('minutes');
+  //   const secondsEl = document.getElementById('seconds');
 
-    const timer = new CountdownTimer(
-      date,
-      daysEl,
-      hoursEl,
-      minutesEl,
-      secondsEl
-    );
-    timer.start();
-    return () => timer.stop();
-  }, []);
+  //   const timer = new CountdownTimer(
+  //     date,
+  //     daysEl,
+  //     hoursEl,
+  //     minutesEl,
+  //     secondsEl
+  //   );
+  //   timer.start();
+  //   return () => timer.stop();
+  // }, []);
 
   return (
     <main className={styles.main}>

@@ -5,7 +5,7 @@ import CountdownTimer from '@/helpers/CountdownTimer';
 type PropsType = {
   id: string;
   title: string;
-  date: Date | string;
+  date: string;
   deleteEvent: (id: string) => void;
 };
 
@@ -35,7 +35,7 @@ export const EventItem = (props: PropsType) => {
   }, [id]);
 
   return (
-    <li className={styles.event}>
+    <li id={id} className={styles.event}>
       <div className={styles.event__wapper}>
         <div className={styles.event__content}>
           <h2 className={styles.event__title}>{title}</h2>
