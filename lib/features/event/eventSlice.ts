@@ -1,39 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-
-interface Event {
-  id: number;
-  title: string;
-  date: Date;
-}
+import { Event } from './type'
 
 export interface CounterState {
   events: Event[];
 }
 
 const initialState: CounterState = {
-  events: [
-    {
-      id: 1,
-      title: 'Tet Holiday',
-      date: new Date('2024-12-01'),
-    },
-    {
-      id: 2,
-      title: 'School Day',
-      date: new Date('2024-08-08'),
-    },
-    {
-      id: 3,
-      title: 'New Job Day',
-      date: new Date('2024-01-10'),
-    },
-    {
-      id: 4,
-      title: 'Birthday Party',
-      date: new Date('2024-02-18'),
-    },
-  ],
+  events: [],
 };
 
 export const counterSlice = createSlice({
@@ -50,17 +24,23 @@ export const counterSlice = createSlice({
     decrement: (state) => {
       state.events = [];
     },
-    incrementByAmount: (state, action: PayloadAction<Event>) => {
-      const event: Event = action.payload;
+    setEvents: (state, action: PayloadAction<Event[]>) => {
       state = {
         ...state,
-        events: [...state.events, event],
+        events: [...state.events],
+      };
+    },
+    addEvent: (state, action: PayloadAction<Event>) => {
+      console.log('addEvent :>> ', action.payload);
+      state = {
+        ...state,
+        events: [...state.events, action.payload],
       };
     },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = counterSlice.actions;
+export const { increment, decrement, setEvents, addEvent } = counterSlice.actions;
 
 export default counterSlice.reducer;

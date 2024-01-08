@@ -3,10 +3,10 @@ import styles from './item.module.css';
 import CountdownTimer from '@/helpers/CountdownTimer';
 
 type PropsType = {
-  id: number;
+  id: string;
   title: string;
-  date: Date;
-  deleteEvent: (id: number) => void;
+  date: Date | string;
+  deleteEvent: (id: string) => void;
 };
 
 export const EventItem = (props: PropsType) => {

@@ -6,7 +6,7 @@ class CountdownTimer {
   private secondsEl: HTMLElement;
   private timer: NodeJS.Timeout | null;
 
-  constructor(date: Date, daysEl: any, hoursEl: any, minutesEl: any, secondsEl: any) {
+  constructor(date: Date | string, daysEl: any, hoursEl: any, minutesEl: any, secondsEl: any) {
     this.targetDateTime = new Date(date).getTime();
     this.daysEl = daysEl;
     this.hoursEl = hoursEl;

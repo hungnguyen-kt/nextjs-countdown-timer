@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react';
+
+import { RootState } from '@/lib/store';
+import { useSelector, useDispatch } from 'react-redux';
+import { setEvents } from '@/lib/features/event/eventSlice';
 import { EventItem } from '../EventItem';
+import { Event } from '@/lib/features/event/type';
 import styles from './list.module.css';
 
-type EventItem = {
-  id: number;
-  title: string;
-  date: Date;
-};
-
 export const EventList = () => {
-  const [events, setEvents] = useState<EventItem[]>([]);
+  const events = useSelector((state: RootState) => state.counter.events);
 
   useEffect(() => {
     const events = localStorage.getItem('events');
@@ -18,8 +17,8 @@ export const EventList = () => {
 
   if (!events.length) return <div className="no-events">No events</div>;
 
-  const deleteEvent = (id: number) => {
-    const newEvents = events.filter((event) => event.id !== id);
+  const deleteEvent = (id: string) => {
+    const newEvents: Event[] = events.filter((event) => event.id !== id);
     setEvents(newEvents);
     localStorage.setItem('events', JSON.stringify(newEvents));
   };

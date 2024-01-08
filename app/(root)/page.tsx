@@ -2,11 +2,13 @@
 
 import { useState, useEffect, FormEvent } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { v4 as uuidv4 } from 'uuid';
 import styles from './page.module.css';
 
 import { RootState } from '@/lib/store';
 import { useSelector, useDispatch } from 'react-redux';
-import { incrementByAmount } from '@/lib/features/event/eventSlice';
+import { addEvent } from '@/lib/features/event/eventSlice';
+import { Event } from '@/lib/features/event/type';
 
 import { EventList } from '@/components/EventList';
 import CountdownTimer from '@/helpers/CountdownTimer';
@@ -44,7 +46,12 @@ export default function Home() {
   };
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    dispatch(incrementByAmount(data));
+    const formData: Event = {
+      id: uuidv4(),
+      title: data.event,
+      date: data.date,
+    }
+    dispatch(addEvent(formData));
   };
 
   const toogleForm = async () => {
