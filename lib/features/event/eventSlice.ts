@@ -1,6 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
 import type { PayloadAction } from '@reduxjs/toolkit';
-import { HYDRATE } from 'next-redux-wrapper';
 
 interface Event {
   id: number;
@@ -51,9 +50,12 @@ export const counterSlice = createSlice({
     decrement: (state) => {
       state.events = [];
     },
-    incrementByAmount: (state, action: PayloadAction<{}>) => {
-      const event: Event = action.payload as Event;
-      state.events = state.events.push(event);
+    incrementByAmount: (state, action: PayloadAction<Event>) => {
+      const event: Event = action.payload;
+      state = {
+        ...state,
+        events: [...state.events, event],
+      };
     },
   },
 });
