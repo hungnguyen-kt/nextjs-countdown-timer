@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import StoreProvider from './(store)/StoreProvider';
 import { Rajdhani } from 'next/font/google';
 import './globals.css';
 
@@ -19,7 +20,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={rajdhani.className}>{children}</body>
+      <body className={rajdhani.className}>
+        <StoreProvider>{children}</StoreProvider>
+      </body>
     </html>
   );
 }
