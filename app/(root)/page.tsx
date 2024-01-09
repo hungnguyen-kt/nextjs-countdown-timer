@@ -110,12 +110,14 @@ export default function Home() {
 
   return (
     <main className={styles.main}>
-      <div className={styles.close}>
-        <div
-          className={styles.close__icon}
-          onClick={() => setShowSidebar(true)}
-        ></div>
-      </div>
+      {!showSidebar && (
+        <div className={styles.close}>
+          <div
+            className={styles.close__icon}
+            onClick={() => setShowSidebar(true)}
+          ></div>
+        </div>
+      )}
       {showSidebar && (
         <div className={styles.sidebar}>
           <div className={styles.sidebar__header}>
