@@ -55,16 +55,10 @@ export default function Home() {
     },
   });
   const [showSidebar, setShowSidebar] = useState<boolean>(false);
-  const [animation, setAnimation] = useState<boolean>(false);
-  const [showForm, setShowForm] = useState<boolean>(false);
 
   const closeSidebar = () => {
     dispatch(clearEvent());
     setShowSidebar(false);
-  };
-
-  const deplay = (ms: number) => {
-    return new Promise((resolve) => setTimeout(resolve, ms));
   };
 
   const onSubmit: SubmitHandler<Inputs> = async (data) => {
@@ -76,20 +70,6 @@ export default function Home() {
     setValue('event', '');
     localStorage.setItem('events', JSON.stringify([...events, formData]));
     dispatch(addEvent(formData));
-  };
-
-  const toogleForm = async () => {
-    if (showForm) {
-      setAnimation(false);
-      await deplay(200);
-      setShowForm(false);
-      return;
-    } else {
-      setShowForm(true);
-      await deplay(0);
-      setAnimation(true);
-      return;
-    }
   };
 
   useEffect(() => {
@@ -126,8 +106,7 @@ export default function Home() {
       {showSidebar && (
         <div className={styles.sidebar}>
           <div className={styles.sidebar__header}>
-            <div className={styles.add}>
-              <div className={styles.add__icon} onClick={toogleForm}></div>
+            <div className={styles.logo}>
             </div>
             <div className="title">
               <h1>Countdown Timer</h1>
@@ -136,37 +115,28 @@ export default function Home() {
               <div className={styles.close__icon} onClick={closeSidebar}></div>
             </div>
           </div>
-          {showForm ? (
-            <div
-              className={`${styles.form__add__event} ${
-                animation ? styles.show : styles.hide
-              }`}
-            >
-              <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
-                <label htmlFor="event">Event:</label>
-                <input
-                  type="text"
-                  id="event"
-                  {...register('event', { required: true })}
-                />
-                {errors.event?.message}
+          <div className={`${styles.form__add__event} ${styles.show}`}>
+            <form className={styles.form} onSubmit={handleSubmit(onSubmit)}>
+              <label htmlFor="event">Event:</label>
+              <input
+                type="text"
+                id="event"
+                {...register('event', { required: true })}
+              />
+              {errors.event?.message}
 
-                <label htmlFor="date">Date:</label>
-                <input
-                  type="date"
-                  id="date"
-                  className={styles.form__date}
-                  min={addMoreDate(
-                    new Date().toISOString().substring(0, 10),
-                    2
-                  )}
-                  {...register('date', { required: true })}
-                />
-                {errors.date?.message}
-                <input type="submit" value="Add Event" />
-              </form>
-            </div>
-          ) : null}
+              <label htmlFor="date">Date:</label>
+              <input
+                type="date"
+                id="date"
+                className={styles.form__date}
+                min={addMoreDate(new Date().toISOString().substring(0, 10), 2)}
+                {...register('date', { required: true })}
+              />
+              {errors.date?.message}
+              <input type="submit" value="Add Event" />
+            </form>
+          </div>
 
           <EventList />
         </div>
