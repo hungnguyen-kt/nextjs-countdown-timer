@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
 import StoreProvider from './(store)/StoreProvider';
-import { Rajdhani } from 'next/font/google';
+import { Oswald } from 'next/font/google';
 import './globals.css';
 
-const rajdhani = Rajdhani({
+const oswald = Oswald({
   subsets: ['latin'],
   weight: '300',
 });
@@ -20,7 +20,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={rajdhani.className}>
+      <body className={oswald.className}>
         <StoreProvider>{children}</StoreProvider>
       </body>
     </html>
