@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { clearEvent } from '@/lib/features/event/eventSlice';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
@@ -58,6 +59,7 @@ export default function Home() {
   const [showForm, setShowForm] = useState<boolean>(false);
 
   const closeSidebar = () => {
+    dispatch(clearEvent());
     setShowSidebar(false);
   };
 
@@ -111,13 +113,16 @@ export default function Home() {
   return (
     <main className={styles.main}>
       {!showSidebar && (
-        <div className={styles.close}>
-          <div
-            className={styles.close__icon}
-            onClick={() => setShowSidebar(true)}
-          ></div>
+        <div className={styles.open__sidebar}>
+          <div className={styles.close}>
+            <div
+              className={styles.close__icon}
+              onClick={() => setShowSidebar(true)}
+            ></div>
+          </div>
         </div>
       )}
+
       {showSidebar && (
         <div className={styles.sidebar}>
           <div className={styles.sidebar__header}>

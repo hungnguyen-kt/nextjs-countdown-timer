@@ -23,10 +23,14 @@ export const counterSlice = createSlice({
       const events = state.events.filter((event) => event.id !== action.payload);
       return { ...state, events };
     },
+
+    clearEvent: (state) => {
+      return { ...state, events: [] };
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { addEvent, removeEvent } = counterSlice.actions;
+export const { addEvent, removeEvent, clearEvent } = counterSlice.actions;
 
 export default counterSlice.reducer;

@@ -16,6 +16,12 @@
   padding: 16px 8px;
 }
 
+.open__sidebar {
+  position: absolute;
+  top: 29px;
+  right: 8px;
+}
+
 .close {
   position: relative;
   width: 32px;

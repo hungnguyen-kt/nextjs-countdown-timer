@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './item.module.css';
 import CountdownTimer from '@/helpers/CountdownTimer';
+import { convertDate } from '@/helpers/index'
 
 type PropsType = {
   id: string;
@@ -11,6 +12,7 @@ type PropsType = {
 
 export const EventItem = (props: PropsType) => {
   const { id, title, date } = props;
+  const [dd, setD] = useState<string>('');
 
   const deleteEvent = () => {
     props.deleteEvent(id);
@@ -34,6 +36,10 @@ export const EventItem = (props: PropsType) => {
     return () => timer.stop();
   }, [id, date]);
 
+  useEffect(() => {
+    setD(convertDate(date));
+  }, [date]);
+
   return (
     <li id={id} className={styles.event}>
       <div className={styles.event__wapper}>
@@ -45,6 +51,9 @@ export const EventItem = (props: PropsType) => {
             <span id={`minutes-${id}`}></span> minutes,{' '}
             <span id={`seconds-${id}`}></span> seconds.
           </time>
+          <div>
+            <small>{dd}</small>
+          </div>
         </div>
         <div className={styles.event__actions}>
           <div className={styles['event__actions--edit']}>Edit</div>
